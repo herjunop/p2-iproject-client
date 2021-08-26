@@ -4,6 +4,7 @@
       <Navbar/>
     </div>
     <router-view/>
+    <HFooter></HFooter>
   </div>
 </template>
 
@@ -31,12 +32,15 @@
 </style>
 <script>
 import Navbar from '@/components/Navbar.vue'
+import HFooter from 'vue-hacktiv8-footer'
+
 export default {
     components: {
-      Navbar
+      Navbar,
+      HFooter
     },
     created(){
-        this.$store.commit('COMMIT_ACCESS_TOKEN', localStorage.getItem('access_token'))
+        this.$store.commit('CHECK_ACCESS_TOKEN')
     }
 }
 </script>

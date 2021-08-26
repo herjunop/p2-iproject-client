@@ -15,6 +15,9 @@ export default new Vuex.Store({
     bookingList:[]
   },
   mutations: {
+    CHECK_ACCESS_TOKEN(state){
+      state.access_token = localStorage.getItem('access_token')
+    },
     COMMIT_ACCESS_TOKEN(state, payload) {
       state.access_token = payload
       localStorage.setItem('access_token', payload);
@@ -54,7 +57,6 @@ export default new Vuex.Store({
   actions: {
     async login(context,payload){
       try {
-        console.log(payload);
         const result = await axios.post("/login", {
           username: payload.username, 
           password: payload.password
@@ -207,6 +209,7 @@ export default new Vuex.Store({
 
     async searchPlaceGoogle(context, payload){
       try {
+        console.log(payload, context.state.access_token);
         const result = await axios.post('/google/place',{
           payload
         },{
