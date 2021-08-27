@@ -1,10 +1,11 @@
 <template>
   <div class="container">
-    <form @submit.prevent="searchPlace">
-      <div class="my-5 input-group">
-            <input v-model="search.input" type="search" class="form-control rounded" placeholder="Search New Sport Centre Here" aria-label="Search"
+    <h1 class="my-5 text-center">Add New Sport Centre</h1>
+    <form @keyup="searchPlace" >
+      <div class=" form-floating">
+            <input v-model="search.input" id="floatingInput" type="search" class="form-control rounded" placeholder="Search New Sport Centre Here" aria-label="Search"
             aria-describedby="search-addon" />
-        <button type="submit" class="btn btn-outline-primary">search</button>
+            <label for="floatingInput">Search Place</label>
         </div>
     </form>
     <hr>

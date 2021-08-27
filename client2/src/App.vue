@@ -3,7 +3,7 @@
     <div id="nav">
       <Navbar/>
     </div>
-    <router-view/>
+    <router-view class="min-vh-100"/>
     <HFooter></HFooter>
   </div>
 </template>

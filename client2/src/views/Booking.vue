@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <h1>Booking</h1>
+  <h1 class="my-5 text-center">My Booking List</h1>
   <div class="row gap-3">
     <BookContent/>
 

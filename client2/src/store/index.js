@@ -50,7 +50,6 @@ export default new Vuex.Store({
       state.searchList = []
     },
     COMMIT_WEATHER_DATA(state, payload) {
-      console.log(payload);
       state.weatherData = payload.daily
     }
   },
@@ -209,7 +208,6 @@ export default new Vuex.Store({
 
     async searchPlaceGoogle(context, payload){
       try {
-        console.log(payload, context.state.access_token);
         const result = await axios.post('/google/place',{
           payload
         },{
@@ -424,6 +422,56 @@ export default new Vuex.Store({
             // Something happened in setting up the request that triggered an Error
             console.log('Error', error.message);
         } 
+      }
+    },
+
+    async destroyPlace(context, payload) {
+      try {
+        const swalResult = await Vue.swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        })
+        if (swalResult.isConfirmed) {
+          await axios.delete('/'+ payload, {
+            headers:{
+              access_token: context.state.access_token
+            }
+          })
+          context.dispatch('fetchPlaces')
+          Vue.swal({
+            position: 'center',
+            icon: 'success',
+            title: 'Place Deleted! ',
+            showConfirmButton: false,
+            timer: 1500
+           })
+        }
+      } catch (error) {
+        if (error.response) {
+            // Request made and server responded
+            Vue.swal({
+                position: 'center',
+                icon: 'error',
+                title: `${error.response.status}`,
+                text: `${error.response.data.message}`,
+                showConfirmButton: false,
+                timer: 2000
+            })
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request);
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+        }  
       }
     }
   },
